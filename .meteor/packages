@@ -6,3 +6,7 @@
 autopublish
 insecure
 preserve-inputs
+coffeescript
+underscore
+stylus
+jquery
