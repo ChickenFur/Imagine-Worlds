@@ -10,3 +10,6 @@ coffeescript
 underscore
 stylus
 jquery
+accounts-ui
+accounts-password
+accounts-google
