@@ -1,0 +1,30 @@
+<template name="chatRoom">
+  <div class="chatRoom" id="mainLobbyChatRoom">
+    <div class ="messages" id="mainLobbyMessages">
+      <textarea readonly></textarea>
+      <br>
+      <div class="createMessage">
+        <input type="text"/>
+        <button id="sendChat">Send</button>
+      </div>
+    </div>
+    <div class ="userList" id="mainLobbyUserList">
+      <textarea readonly>
+      </textarea>
+    </div>
+       <div class="games">
+      <div class="gameBrowser">
+        <textarea></textarea>
+        <br>
+        <button id="joinGame">Join</button>
+      </div>
+      <div class="createGame">
+        <label>Game Name:</label>
+        <br>
+        <input type="text"/>
+        <br>
+        <button id="createGame">Create</button>
+      </div>
+    </div>
+  </div>
+</template>
