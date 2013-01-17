@@ -24,10 +24,22 @@
     {{>welcome}}
   {{/unless}}
 </template>
+<template name = "stats">
+  <div class="stats">
+    <label>Total Users: {{totalUsers}}</label>
+    <br>
+    <label>Connected Users: {{connectedUsers}} </label>
+    <br>
+    <label>Games Played: {{totalGames}}</label>
+    <br>
+    <label>Games Running: {{gamesRunning}} </label>
+
+  </div>
+</template>
 
 <template name = "welcome">
-  <h3>Welcome Please Login To Begin: </h3>
-  <div class="userLogins">
+  <h3 class="welcome">Welcome Please Login To Begin: </h3>
+  <div class="loginButtons">
     {{loginButtons}}
   </div>
 </template>
@@ -49,3 +61,4 @@
   <div id="map_container">
   </div>
 </template>
+
