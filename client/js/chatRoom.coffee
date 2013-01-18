@@ -53,6 +53,9 @@ Template.chatRoom.events({
         name: GameRooms.findOne(Session.get("selectedGame")).title 
         gameId: Session.get("selectedGame") } )    
 
+  'dblclick .gameTitle' : (event, template) ->
+    $(template.find('#joinGame')).click()
+
   'click .leaveGame' : (event, template)->
     Session.set("GameStatus", "")
     Meteor.call('closeGame')
