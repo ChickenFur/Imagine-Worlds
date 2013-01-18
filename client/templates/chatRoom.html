@@ -1,0 +1,58 @@
+<template name="chatRoom">
+  <div class="chatRoom" id="{{roomName}}ChatRoom">
+    <div class="loginButtons">
+      {{loginButtons}}
+    </div>
+    <h4 class="roomName"><label>Room: </label>{{roomName}}</h4>
+    <div class ="messages" id="{{roomName}}Messages">
+      <div class="messagesText">
+      </div>
+      <br>
+      <div class="createMessage">
+        <input type="text"/>
+        <button id="sendChat">Send</button>
+      </div>
+    </div>
+    <div class ="userList" id="{{roomName}}UserList">
+    </div>
+      {{#unless gameRoom}}
+        <div class = "gameButtons" id="{{title}}GameButtons">
+        <div class="launchButton">
+          <button class="launchGame">Launch Game </button>
+        </div>
+        <div class="leaveGame">
+          <button class="leaveGame">Leave Game</button>
+        </div>
+        </div>
+      {{/unless}}
+
+      {{#if gameRoom}}
+         <div class="games">
+          {{> stats}}
+          <div class="gameBrowser">
+            <label>Games Waiting For Players: </label>
+            <br>
+            <div class="gameList" id="{{roomName}}GameList">
+              {{#each gameList}}
+                  {{> game}}
+              {{/each}}
+            </div>
+            <br>
+            <button id="joinGame">Join</button>
+          </div>
+          <div class="createGame">
+            <label>Game Name:</label>
+            <br>
+            <input class="newGameName"type="text"/>
+            <br>
+            <button id="createGame">Create</button>
+          </div>
+        </div>
+      {{/if}}
+  </div>
+</template>
+<template name="game">
+  <div class="gameTitle" id="{{title}}Game"> 
+    {{title}} 
+  </div>
+</template>
