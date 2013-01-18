@@ -1,5 +1,6 @@
 GameRooms = new Meteor.Collection("gameRooms")
 OnlineUsers = new Meteor.Collection("onlineUsers")
+Messages = new Meteor.Collection("messages")
 
 Meteor.methods({
   createGame: (options) -> 

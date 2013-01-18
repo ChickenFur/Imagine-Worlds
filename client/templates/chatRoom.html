@@ -6,10 +6,13 @@
     <h4 class="roomName"><label>Room: </label>{{roomName}}</h4>
     <div class ="messages" id="{{roomName}}Messages">
       <div class="messagesText">
+        {{#each messages}}
+          {{>message}}
+        {{/each}}
       </div>
       <br>
       <div class="createMessage">
-        <input type="text"/>
+        <input id="chatMessage" type="text"/>
         <button id="sendChat">Send</button>
       </div>
     </div>
@@ -54,5 +57,19 @@
 <template name="game">
   <div class="gameTitle {{selected}}" id="{{title}}Game"> 
     {{title}} 
+  </div>
+</template>
+
+<template name="message">
+  <div class="message">
+    <span class="messageUserName">
+      {{messageUserName}}
+    </span>
+    <span class="messageText">
+      {{messageText}}
+    </span>
+    <span class="messageTime">
+      {{messageTime}}
+    </span>
   </div>
 </template>
