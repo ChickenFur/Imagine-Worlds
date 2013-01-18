@@ -22,14 +22,7 @@
       {{/each}}
     </div>
       {{#unless gameRoom}}
-        <div class = "gameButtons" id="{{title}}GameButtons">
-        <div class="launchButton">
-          <button class="launchGame">Launch Game </button>
-        </div>
-        <div class="leaveGame">
-          <button class="leaveGame">Leave Game</button>
-        </div>
-        </div>
+        {{>gameRoom}}
       {{/unless}}
 
       {{#if gameRoom}}
@@ -79,5 +72,18 @@
 
 <template name="user">
   <div class="user">{{name}}
+  </div>
+</template>
+
+<template name="gameRoom">
+  <div class = "gameButtons" id="{{title}}GameButtons">
+    {{#if ownersGame}}
+      <div class="launchButton">
+        <button class="launchGame">Launch Game </button>     
+      </div>
+    {{/if}}
+    <div class="leaveGame">
+      <button class="leaveGame">Leave Game</button>
+    </div>
   </div>
 </template>

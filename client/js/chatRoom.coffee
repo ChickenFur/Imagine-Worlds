@@ -78,6 +78,16 @@ Template.chatRoom.events({
       $(template.find('#sendChat')).click() 
   })
 
+Template.gameRoom.ownersGame = ->
+  if(Session.get("GameStatus"))
+    if( Meteor.userId() is GameRooms.findOne( Session.get("GameStatus").gameId).owner )
+      return true
+    else
+      return false
+  else
+    return false
+
+
 Template.game.selected = ->
   console.log("selected")
   if( Session.equals("selectedGame", this._id) ) 
