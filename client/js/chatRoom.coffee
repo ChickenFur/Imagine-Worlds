@@ -16,7 +16,7 @@ Template.chatRoom.gameRoom = () ->
 
 Template.chatRoom.messages = () ->
   if(Session.get("GameStatus"))
-    Messages.find({gameId:Session.get("GameStatus").gameId}, 
+    Messages.find({messageRoom:Session.get("GameStatus").gameId}, 
       {messageUserName: 1,messageText: 1,messageTime: 1}).fetch()
   else
     Messages.find({roomName:"MainLobby"}, 
@@ -26,7 +26,10 @@ Template.chatRoom.events({
   'click #createGame' : (event, template) ->
     title = template.find(".newGameName").value
     if(title.length)
-      gameId = Meteor.call('createGame', {title:title})
+      gameId = GameRooms.insert
+                owner: this.userId
+                title: title
+                state: "chatRoom"
       template.find(".newGameName").value = "" 
       Session.set("GameStatus", {inGame: true, status: "chatRoom", name: title, gameId: gameId})
     else
@@ -44,6 +47,7 @@ Template.chatRoom.events({
   'click #sendChat' : (event, template ) ->
     currentStatus = Session.get("GameStatus")
     newMessageText = template.find("#chatMessage").value
+    template.find("#chatMessage").value = ""
     if newMessageText
       Messages.insert({messageText: newMessageText,
       messageUserName: Meteor.user().profile.name,
