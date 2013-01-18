@@ -8,6 +8,8 @@ Meteor.methods({
       owner: this.userId
       title: options.title
       state: "chatRoom"
+  getGameName: (options) ->
+    return GameRooms.findOne(options._id).title
   
   numOfGames: ->
     theNum = GameRooms.find({}).count()

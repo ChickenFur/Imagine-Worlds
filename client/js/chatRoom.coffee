@@ -18,13 +18,35 @@ Template.chatRoom.events({
   'click #createGame' : (event, template) ->
     title = template.find(".newGameName").value
     if(title.length)
-      Meteor.call('createGame', {title:title})
+      gameId = Meteor.call('createGame', {title:title})
       template.find(".newGameName").value = "" 
-      Session.set("GameStatus", {inGame: true, status: "chatRoom", name: title})
+      Session.set("GameStatus", {inGame: true, status: "chatRoom", name: title, gameId: gameId})
     else
       console.log("Needs a title")
+  'click #joinGame' : (event, template) ->
+    if(Session.get("selectedGame"))
+      Session.set("GameStatus", 
+        {inGame: true
+        status: "chatRoom"
+        name: GameRooms.findOne(Session.get("selectedGame")).title 
+        gameId: Session.get("selectedGame") } )
+        
 
   'click .leaveGame' : (event, template)->
     Session.set("GameStatus", "")
     Meteor.call('closeGame')
+
+  })
+
+Template.game.selected = ->
+  console.log("selected")
+  if( Session.equals("selectedGame", this._id) ) 
+    return "selected"
+  else
+    return ""
+Template.game.events({
+  'click .gameTitle' : (event, template) ->
+    title = event.target.txt
+    Session.set("selectedGame", this._id)
+    console.log("selected" + this._id)
   })
