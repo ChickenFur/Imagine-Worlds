@@ -13,6 +13,11 @@ Template.chatRoom.gameRoom = () ->
     return false
   else
     return true
+Template.chatRoom.users = () ->
+  if(Session.get("GameStatus"))
+    return OnlineUsers.find({gameId: Session.get("GameStatus").gameId})
+  else
+    return OnlineUsers.find({gameId:"MainLobby"}).fetch()
 
 Template.chatRoom.messages = () ->
   if(Session.get("GameStatus"))
