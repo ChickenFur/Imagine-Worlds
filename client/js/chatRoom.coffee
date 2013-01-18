@@ -24,8 +24,13 @@ Template.chatRoom.messages = () ->
     Messages.find({messageRoom:Session.get("GameStatus").gameId}, 
       {messageUserName: 1,messageText: 1,messageTime: 1}).fetch()
   else
-    Messages.find({roomName:"MainLobby"}, 
-      {messageUserName: 1,messageText: 1,messageTime: 1}).fetch()
+    totalMessages = Messages.find({roomName:"MainLobby"}).count()
+    numberToNotDisplay = totalMessages - 25
+    Messages.find( {roomName:"MainLobby"},
+    messageUserName: 1
+    messageText: 1
+    messageTime: 1
+    skip: numberToNotDisplay ).fetch()
 
 Template.chatRoom.events({
   'click #createGame' : (event, template) ->
