@@ -23,7 +23,7 @@ Template.chatRoom.gameRoom = () ->
   else
     return false
 
-Template.chatRoom.users = () ->
+Template.userList.users = () ->
   if(Session.get("GameStatus"))
     return OnlineUsers.find({gameId: Session.get("GameStatus").gameId})
   else
@@ -126,5 +126,4 @@ Template.game.events({
   'click .gameTitle' : (event, template) ->
     title = event.target.txt
     Session.set("selectedGame", this._id)
-    console.log("selected" + this._id)
   })

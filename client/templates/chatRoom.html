@@ -16,38 +16,35 @@
         <button id="sendChat">Send</button>
       </div>
     </div>
-    <div class ="userList" id="{{roomName}}UserList">
-      {{#each users}}
-        {{>user}}
-      {{/each}}
-    </div>
-      {{#if gameRoom}}
-        {{>gameRoom}}
-      {{/if}}
+    {{> userList}}
+    
+    {{#if gameRoom}}
+      {{>gameRoom}}
+    {{/if}}
 
-      {{#unless gameRoom}}
-         <div class="games">
-          {{> stats}}
-          <div class="gameBrowser">
-            <label>Games Waiting For Players: </label>
-            <br>
-            <div class="gameList" id="{{roomName}}GameList">
-              {{#each gameList}}
-                  {{> game}}
-              {{/each}}
-            </div>
-            <br>
-            <button id="joinGame">Join</button>
+    {{#unless gameRoom}}
+       <div class="games">
+        {{> stats}}
+        <div class="gameBrowser">
+          <label>Games Waiting For Players: </label>
+          <br>
+          <div class="gameList" id="{{roomName}}GameList">
+            {{#each gameList}}
+                {{> game}}
+            {{/each}}
           </div>
-          <div class="createGame">
-            <label>Game Name:</label>
-            <br>
-            <input class="newGameName"type="text"/>
-            <br>
-            <button id="createGame">Create</button>
-          </div>
+          <br>
+          <button id="joinGame">Join</button>
         </div>
-      {{/unless}}
+        <div class="createGame">
+          <label>Game Name:</label>
+          <br>
+          <input class="newGameName"type="text"/>
+          <br>
+          <button id="createGame">Create</button>
+        </div>
+      </div>
+    {{/unless}}
   </div>
 </template>
 <template name="game">
@@ -67,6 +64,14 @@
 <!--     <span class="messageTime">
       {{messageTime}} ago
     </span> -->
+  </div>
+</template>
+
+<template name="userList">
+  <div class ="userList">
+    {{#each users}}
+      {{>user}}
+    {{/each}}
   </div>
 </template>
 

@@ -32,7 +32,7 @@ Meteor.setInterval ->
         lastActivity: now
         gameId: gameId 
       )
- ,10000
+ ,1000
 
 
   # OnlineUsers.find({'active' : true, 'lastActivity': {lt: now -30 + 1000}}).forEach (onlineActivity) ->

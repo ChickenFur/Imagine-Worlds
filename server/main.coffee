@@ -10,7 +10,3 @@ if (Meteor.isServer)
       if( (now - user.lastActivity) > ONE_MINUTE )
         OnlineUsers.remove(user._id)
     ,100
-# Meteor.setInterval ->
-#   now = new Date()
-#   OnlineUsers.update({lastActivity: > 1 } {$set {active: false}})
-#   ,10000
