@@ -65,10 +65,10 @@ Template.chatRoom.events({
   'dblclick .gameTitle' : (event, template) ->
     $(template.find('#joinGame')).click()
 
-  'click .leaveGame' : (event, template)->
-    
+  'click .leaveGame' : (event, template)->    
     currentStatus = Session.get("GameStatus")
     currentGame = GameRooms.findOne(currentStatus.gameId)
+    leaveGame(this.userId, currentGame.gameId)
     location = currentGame.players.indexOf(this.userId)
     currentGame.players.splice(location, 1) 
     currentGame.playerCount--
@@ -100,7 +100,7 @@ Template.chatRoom.events({
     gameStatus = Session.get("GameStatus")
     GameRooms.update(gameStatus.gameId, 
       $set :
-        status : "launched"
+        state : "launched"
     )
     gameStatus.status = "launched"
     Session.set "GameStatus", gameStatus

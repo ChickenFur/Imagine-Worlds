@@ -6,7 +6,7 @@ Template.master.launchingGame = ->
 
 Template.master.inGame = ->
   if Session.get("GameStatus")
-    if GameRooms.findOne(Session.get("GameStatus").gameId).status is "launched"
+    if GameRooms.findOne(Session.get("GameStatus").gameId).state is "launched"
       return true
   return false
 
