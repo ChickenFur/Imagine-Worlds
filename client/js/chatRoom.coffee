@@ -1,5 +1,6 @@
 SCROLL_BOTTOM_POSITION = 800
 NUM_MESSAGES_TO_DISPLAY = 50
+GAME_SIZE = 50
 
 Template.chatRoom.rendered = () ->
   $(this.find('.messagesText')).scrollTop(SCROLL_BOTTOM_POSITION)
@@ -106,6 +107,9 @@ Template.chatRoom.events({
     )
     gameStatus.status = "launched"
     Session.set "GameStatus", gameStatus
+    Meteor.call "launchGame", 
+      gameId : gameStatus.gameId
+      gameSize : GAME_SIZE
   })
 Template.gameRoom.ownersGame = ->
   if(Session.get("GameStatus"))

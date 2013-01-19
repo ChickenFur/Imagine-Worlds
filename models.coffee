@@ -42,6 +42,12 @@ Meteor.methods({
       owner: this.userId
       title: options.title
       state: "chatRoom"
+
+  launchGame: (options) ->
+    GameRooms.update options.gameId, 
+      $set :
+        gameData : new makeGame(options.gameSize)
+    
   getGameName: (options) ->
     GameRooms.findOne(options._id).title
   

@@ -23,3 +23,4 @@ if (Meteor.isServer)
       if( (now - user.lastActivity) > ONE_MINUTE )
         OnlineUsers.remove(user._id)
     ,1000
+  
