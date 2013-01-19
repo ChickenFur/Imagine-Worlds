@@ -3,6 +3,7 @@ gameUserFunctions = {
     currentGame = GameRooms.findOne(gameId)
     location = currentGame.players.indexOf(this.userId)
     if currentGame.playerCount is 1
+      History.insert({currentGame})
       GameRooms.remove({})
     else
       currentGame.players.splice(location, 1) 
@@ -12,5 +13,6 @@ gameUserFunctions = {
           playerCount : currentGame.playerCount
           players : currentGame.players
       )
+
 
 }
