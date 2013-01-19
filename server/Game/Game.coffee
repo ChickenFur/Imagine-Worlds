@@ -10,8 +10,9 @@ makeGame = (size) ->
 
 makeMapGrid = (size) ->
   aGrid = [[]]
-  for n in size
-    for i in size
+  for n in [0...size]
+    aGrid[n] = []
+    for i in [0...size]
       aGrid[n][i] = new makeTerrain(n, i)
 
   MapGrid = {
@@ -30,5 +31,5 @@ makeTerrain = (xLoc, yLoc) ->
   TerrainObject = {
     X : xLoc
     Y : yLoc
-    type : TerrainTypes[ Math.floor ( Math.random * (TerrainTypes.length -1) ) ]
+    type : TerrainTypes[ Math.floor ( Math.random() * (TerrainTypes.length-1) ) ]
   }
