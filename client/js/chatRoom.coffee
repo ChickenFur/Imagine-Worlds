@@ -1,3 +1,9 @@
+SCROLL_BOTTOM_POSITION = 500
+NUM_MESSAGES_TO_DISPLAY = 50
+
+
+Template.chatRoom.rendered = () ->
+  $(this.find('.messagesText')).scrollTop(SCROLL_BOTTOM_POSITION)
 Template.chatRoom.roomName = () ->
   if(Session.get("GameStatus"))
     return Session.get("GameStatus").name
@@ -25,7 +31,7 @@ Template.chatRoom.messages = () ->
       {messageUserName: 1,messageText: 1,messageTime: 1}).fetch()
   else
     totalMessages = Messages.find({roomName:"MainLobby"}).count()
-    numberToNotDisplay = totalMessages - 25
+    numberToNotDisplay = totalMessages - NUM_MESSAGES_TO_DISPLAY
     Messages.find( {roomName:"MainLobby"},
     messageUserName: 1
     messageText: 1
