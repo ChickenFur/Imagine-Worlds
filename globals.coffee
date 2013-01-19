@@ -1,1 +1,0 @@
-games = new Meteor.Collection(games)
