@@ -1,30 +1,16 @@
 if (Meteor.isServer) 
-  Meteor.publish "onlineUsersByGame", (gameId) ->
-    self = this
-    uuid = Meteor.uuid();
-  
-    handle = OnlineUsers.find({gameId:gameId}).observe(
-      added : (doc, idx) ->
-        self.set("currentUsers", uuid, {name: name, gameId: gameId})
-        self.flush()
-      removed : (doc, idx) ->
-        self.set("currentUsers", uuid {name: name, gameId: gameId})
-        self.flush()
-      )
-    self.complete()
-    self.flush()
-    self.onStop () ->
-      handle.stop()
-    
+
+  Meteor.publish "onlineUsers", () ->
+    OnlineUsers.find({}) 
 
   Meteor.publish "gameRooms", () ->
-    return GameRooms.find({})
+    GameRooms.find({})
 
   Meteor.publish "history", () ->
-    return History.find({})
+    History.find({})
 
   Meteor.publish "messages", () ->
-    return Message.find({})
+    Messages.find({})
 
   Meteor.startup () -> 
     console.log("Server Started")

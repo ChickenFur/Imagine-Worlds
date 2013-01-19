@@ -1,8 +1,7 @@
-Meteor.subscribe('onlineUsersByGame')
-CurrentUsers = new Meteor.Collection("currentUsers")
-
-Meteor.autosubscribe () ->
-  Meteor.subscribe("onlineUsersByGame", Session.get("GameStatus").gameId)
+Meteor.subscribe "onlineUsers"
+Meteor.subscribe "gameRooms"
+Meteor.subscribe "history"
+Meteor.subscribe "messages"
 
 Template.master.launchingGame = ->
    Session.get("GameStatus")
