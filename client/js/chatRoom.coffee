@@ -18,6 +18,8 @@ Template.chatRoom.gameRoom = () ->
     if Session.get("GameStatus").gameId
       if GameRooms.findOne( Session.get("GameStatus").gameId )
         return true
+      else
+        Session.set("GameStatus", "")
   else
     return false
 
