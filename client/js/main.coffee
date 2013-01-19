@@ -1,5 +1,8 @@
-Meteor.subscribe('onlineUsers')
-Meteor.subscribe('gameRooms')
+Meteor.subscribe('onlineUsersByGame')
+CurrentUsers = new Meteor.Collection("currentUsers")
+
+Meteor.autosubscribe () ->
+  Meteor.subscribe("onlineUsersByGame", Session.get("GameStatus").gameId)
 
 Template.master.launchingGame = ->
    Session.get("GameStatus")
@@ -33,11 +36,3 @@ Meteor.setInterval ->
         gameId: gameId 
       )
  ,1000
-
-
-  # OnlineUsers.find({'active' : true, 'lastActivity': {lt: now -30 + 1000}}).forEach (onlineActivity) ->
-  #   if onlineActivity && onlineActivity.userId
-  #     OnlineUsers.update({userId:onlineActivity.userId},{$set: {'active': false}})
-  #     Meteor.users.update(onlineActivity.userId,{$set: {'profile.online': false}})
-
-#Meteor.users.update({_id: Meteor.userId()}, {$set : {profile.online : true}})
