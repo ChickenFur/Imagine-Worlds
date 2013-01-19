@@ -1,7 +1,39 @@
 History = new Meteor.Collection("history")
+History.allow({
+  insert : (userId, doc) ->
+    true
+  update : (userId, doc) ->
+    true
+  remove : (userId, doc) ->
+    true
+  })
 GameRooms = new Meteor.Collection("gameRooms")
+GameRooms.allow({
+  insert : (userId, doc) ->
+    true
+  update : (userId, doc) ->
+    true
+  remove : (userId, doc) ->
+    true
+  })
 OnlineUsers = new Meteor.Collection("onlineUsers")
+OnlineUsers.allow({
+  insert : (userId, doc) ->
+    true
+  update : (userId, doc) ->
+    true
+  remove : (userId, doc) ->
+    true
+  })
 Messages = new Meteor.Collection("messages")
+Messages.allow({
+  insert : (userId, doc) ->
+    true
+  update : (userId, doc) ->
+    true
+  remove : (userId, doc) ->
+    true
+  })
 
 Meteor.methods({
   createGame: (options) -> 
@@ -11,12 +43,12 @@ Meteor.methods({
       title: options.title
       state: "chatRoom"
   getGameName: (options) ->
-    return GameRooms.findOne(options._id).title
+    GameRooms.findOne(options._id).title
   
   numOfGames: ->
     theNum = GameRooms.find({}).count()
     console.log(theNum)
-    return theNum
+    theNum
 
   closeGame: () ->
     GameRooms.remove({owner: this.userId})
