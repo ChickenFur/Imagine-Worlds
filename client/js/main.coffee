@@ -4,6 +4,9 @@ Meteor.subscribe('gameRooms')
 Template.master.launchingGame = ->
    Session.get("GameStatus")
 
+Template.master.inGame = ->
+  return false
+
 Meteor.setInterval ->
   if(Meteor.userId)
     now = (new Date()).getTime()

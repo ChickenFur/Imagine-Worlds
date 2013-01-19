@@ -40,6 +40,8 @@ Template.chatRoom.events({
                 owner: this.userId
                 title: title
                 state: "chatRoom"
+                players: [this.userId]
+                playerCount : 1
       template.find(".newGameName").value = "" 
       Session.set("GameStatus", {inGame: true, status: "chatRoom", name: title, gameId: gameId})
     else
@@ -51,12 +53,30 @@ Template.chatRoom.events({
         {inGame: true
         status: "chatRoom"
         name: GameRooms.findOne(Session.get("selectedGame")).title 
-        gameId: Session.get("selectedGame") } )    
+        gameId: Session.get("selectedGame") } )  
+      currentGame = GameRooms.findOne(Session.get("selectedGame"))
+      currentGame.players.push(this.userId)
+      GameRooms.update(Session.get("selectedGame"), 
+        $set:
+          playerCount : currentGame.playerCount + 1
+          players : currentGame.players
+      )  
 
   'dblclick .gameTitle' : (event, template) ->
     $(template.find('#joinGame')).click()
 
   'click .leaveGame' : (event, template)->
+    
+    currentStatus = Session.get("GameStatus")
+    currentGame = GameRooms.findOne(currentStatus.gameId)
+    location = currentGame.players.indexOf(this.userId)
+    currentGame.players.splice(location, 1) 
+    currentGame.playerCount--
+    GameRooms.update(currentStatus.gameId,
+      $set:
+        playerCount : currentGame.playerCount
+        players : currentGame.players
+    )
     Session.set("GameStatus", "")
     Meteor.call('closeGame')
 
@@ -73,11 +93,18 @@ Template.chatRoom.events({
       })
 
   'keydown #chatMessage' : (event, template) ->
-    console.log ("Enter key clicked")
     if event.which is 13 
       $(template.find('#sendChat')).click() 
-  })
 
+  'click .launchGame' : (event, template) ->
+    gameStatus = Session.get("GameStatus")
+    GameRooms.update(gameStatus.gameId, 
+      $set :
+        status : "launched"
+    )
+    gameStatus.status = "launched"
+    Session.set "GameStatus", gameStatus
+  })
 Template.gameRoom.ownersGame = ->
   if(Session.get("GameStatus"))
     if( Meteor.userId() is GameRooms.findOne( Session.get("GameStatus").gameId).owner )
@@ -86,7 +113,6 @@ Template.gameRoom.ownersGame = ->
       return false
   else
     return false
-
 
 Template.game.selected = ->
   console.log("selected")

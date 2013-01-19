@@ -8,7 +8,12 @@
 
 <template name ="master">
   {{#if currentUser}}
-    {{>chatRoom}}  
+    {{#unless inGame}}
+      {{>chatRoom}}
+    {{/unless}}
+    {{#if inGame}}
+      {{>gameWindow}}
+    {{/if}}  
   {{/if}}
   {{#unless currentUser}}
     {{>welcome}}
@@ -31,8 +36,4 @@
   </div>
 </template>
 
-<template name="gameWindow">
-  <div id="map_container">
-  </div>
-</template>
 
