@@ -21,11 +21,11 @@
         {{>user}}
       {{/each}}
     </div>
-      {{#unless gameRoom}}
-        {{>gameRoom}}
-      {{/unless}}
-
       {{#if gameRoom}}
+        {{>gameRoom}}
+      {{/if}}
+
+      {{#unless gameRoom}}
          <div class="games">
           {{> stats}}
           <div class="gameBrowser">
@@ -47,7 +47,7 @@
             <button id="createGame">Create</button>
           </div>
         </div>
-      {{/if}}
+      {{/unless}}
   </div>
 </template>
 <template name="game">

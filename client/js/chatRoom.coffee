@@ -1,6 +1,5 @@
-SCROLL_BOTTOM_POSITION = 500
+SCROLL_BOTTOM_POSITION = 800
 NUM_MESSAGES_TO_DISPLAY = 50
-
 
 Template.chatRoom.rendered = () ->
   $(this.find('.messagesText')).scrollTop(SCROLL_BOTTOM_POSITION)
@@ -16,9 +15,12 @@ Template.chatRoom.gameList = () ->
 
 Template.chatRoom.gameRoom = () ->
   if(Session.get("GameStatus"))
-    return false
+    if Session.get("GameStatus").gameId
+      if GameRooms.findOne( Session.get("GameStatus").gameId )
+        return true
   else
-    return true
+    return false
+
 Template.chatRoom.users = () ->
   if(Session.get("GameStatus"))
     return OnlineUsers.find({gameId: Session.get("GameStatus").gameId})
@@ -74,15 +76,7 @@ Template.chatRoom.events({
   'click .leaveGame' : (event, template)->    
     currentStatus = Session.get("GameStatus")
     currentGame = GameRooms.findOne(currentStatus.gameId)
-    leaveGame(this.userId, currentGame.gameId)
-    location = currentGame.players.indexOf(this.userId)
-    currentGame.players.splice(location, 1) 
-    currentGame.playerCount--
-    GameRooms.update(currentStatus.gameId,
-      $set:
-        playerCount : currentGame.playerCount
-        players : currentGame.players
-    )
+    gameUserFunctions.leaveGame(this.userId, currentGame._id)
     Session.set("GameStatus", "")
     Meteor.call('closeGame')
 
