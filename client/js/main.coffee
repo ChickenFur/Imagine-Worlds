@@ -5,6 +5,9 @@ Template.master.launchingGame = ->
    Session.get("GameStatus")
 
 Template.master.inGame = ->
+  if Session.get("GameStatus")
+    if GameRooms.findOne(Session.get("GameStatus").gameId).status is "launched"
+      return true
   return false
 
 Meteor.setInterval ->
