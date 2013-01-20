@@ -43,22 +43,29 @@ if (Meteor.isServer)
   Meteor.setInterval () ->
     runningGames = GameRooms.find({state: "launched"}).fetch()
     for game in runningGames 
+      console.log("Players" + game.players )
       for player in game.players
         user = OnlineUsers.findOne({userId : player})
-        if(user.gameId is game._id)
-          console.log("Were Good, the user is still in")
+        console.log(user)
+        if( (user is undefined) or (user.gameId isnt game._id))
+          console.log("User must be in a different game or not in a game")
+          location = game.players.indexOf(player)
+          console.log("Id of PLayer Removing " + player)
+          console.log("location in array:" + location)
+          console.log("Players array" + game.players)
+          if(location >= 0)
+            console.log("Location is valid Removing")
+            if game.playerCount is 1
+              History.insert({gamePlayed: new Date()})
+              GameRooms.remove(game._id)
+            else
+              newCount = game.playerCount-1
+              game.players.splice(location, 1) 
+              GameRooms.update(game._id,
+                $set:
+                  playerCount : newCount
+                  players : game.players
+              )
         else
-          console.log("User must be in a different game or not in a game")  
-          location = game.players.indexOf(this.userId)
-          if game.playerCount is 1
-            History.insert({gamePlayed: new Date()})
-            GameRooms.remove(game._id)
-          else
-            game.players.splice(location, 1) 
-            game.playerCount--
-            GameRooms.update(game._id,
-              $set:
-                playerCount : game.playerCount
-                players : game.players
-            )
-  ,1000
+          console.log("Were Good, the user is still in")
+  ,4000
