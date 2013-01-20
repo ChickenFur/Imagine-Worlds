@@ -1,6 +1,6 @@
 INNER_SQUARE_SIZE = 5
 RANDOMNESS_OF_FOOD = 20 # Greater the number the less food 
-RANDOMNESS_OF_LIFE = 50 
+RANDOMNESS_OF_LIFE = 45 # Greater the number the less food 
 
 TerrainTypes = ["Grass", "Plains", "Hills", "Mountain", "Desert", "Water", "Ocean"]
 ResourceTypes = ["Forest", "Rock"]

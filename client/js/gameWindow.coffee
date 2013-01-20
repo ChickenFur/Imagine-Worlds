@@ -1,20 +1,19 @@
-cellWidth = 5
-cellHeight = 5
+cellWidth = 10
+cellHeight = 10
 delay = 100
 toSingleArray = (twoDArray) ->
   newArray = []
   for n, x in twoDArray
     for k, y in n
       newArray.push({x: x, y: y, lifeForm: twoDArray[x][y].lifeForm})
-  console.log(newArray)
   newArray
 
 Template.gameWindow.rendered = (template) ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
   grid = currentGame.gameData.MapGrid.tiles
   singleArray = toSingleArray(grid)
-  width = grid.length
-  height = grid[0].length
+  width = 500
+  height = 500
 
   xs = d3.scale.linear().domain([0, width]).range([0, width * cellWidth])
   ys = d3.scale.linear().domain([0, height]).range([0, height * cellHeight])
@@ -28,8 +27,10 @@ Template.gameWindow.rendered = (template) ->
     .enter().append("svg:rect")
     .attr("stroke", "none")
     .attr("fill", (d) -> 
-      console.log(d.lifeForm)
-      d.lifeForm ? "green" : "white")
+      if d.lifeForm
+        return "green" 
+      else
+        return "white")
     .attr("x", (d) -> xs(d.x))
     .attr("y", (d) -> ys(d.y))
     .attr("width", cellWidth)
