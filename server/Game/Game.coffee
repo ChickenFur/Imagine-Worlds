@@ -2,8 +2,8 @@ makeGame = (size) ->
   Game = {
     MapGrid : new makeMapGrid(size)
     Age : 0
-    Tick : () ->
+    tick : () ->
       @MapGrid.traverseTakeAction()
-    Tock : () ->
-      @MapGrid.traverseUpdate()
+    tock : () ->
+      @MapGrid.tiles = @MapGrid.traverseUpdate()
   }

@@ -36,6 +36,8 @@ Template.gameWindow.rendered = (template) ->
     .attr("width", cellWidth)
     .attr("height", cellHeight)
   return
+
+
 Template.gameWindow.events({
   'click .endGame' : (event, template) ->
     gameUserFunctions.leaveGame(this.userId, Session.get("GameStatus").gameId )
