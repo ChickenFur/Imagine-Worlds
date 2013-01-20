@@ -24,10 +24,11 @@ if (Meteor.isServer)
         OnlineUsers.remove(user._id)
     runningGames = GameRooms.find({state: "launched"}).fetch()
     for n, i in runningGames
-      n.gameData.MapGrid.tiles = MapMethods.newGeneration(n.gameData.MapGrid.tiles)
-      GameRooms.update(n._id, {$set : {MapGrid : n.gameData.MapGrid} })
+      n.gameData.MapGrid.tiles = MapMethods.newGeneration(n.gameData.MapGrid.tiles)  
+      GameRooms.update(n._id, {$set : {gameData : {MapGrid : {tiles : n.gameData.MapGrid.tiles}}}})
+      console.log("Updated DB")
     return
 
-  ,1000
+  ,2000
 
 

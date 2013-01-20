@@ -12,7 +12,7 @@ makeMapGrid = (size) ->
 
 MapMethods = {
   newGeneration : (tiles) ->
-    
+    console.log("Creating New Generation")
     nextGen = []
     size = tiles.length
     for n, x in tiles
@@ -44,7 +44,7 @@ MapMethods = {
           x : tiles[x][y].x
           y : tiles[x][y].y
           lifeForm : newLifeForm
-          type : tiles[x][y].type
+          type : "test" #tiles[x][y].type
           }  
     return nextGen
 }
