@@ -44,9 +44,11 @@ Meteor.methods({
       state: "chatRoom"
 
   launchGame: (options) ->
+    newGameData = makeGame(options.gameSize)
+    console.log("newGameData")
     GameRooms.update options.gameId, 
       $set :
-        gameData : new makeGame(options.gameSize)
+        gameData : newGameData
     
   getGameName: (options) ->
     GameRooms.findOne(options._id).title
