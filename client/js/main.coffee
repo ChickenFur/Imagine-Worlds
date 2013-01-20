@@ -34,4 +34,4 @@ Meteor.setInterval ->
         lastActivity: now
         gameId: gameId 
       )
- ,5000
+ ,30000

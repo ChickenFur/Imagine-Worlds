@@ -22,4 +22,4 @@ if (Meteor.isServer)
     OnlineUsers.find().fetch().forEach (user) ->
       if( (now - user.lastActivity) > ONE_MINUTE )
         OnlineUsers.remove(user._id)
-    ,5000
+    ,20000
