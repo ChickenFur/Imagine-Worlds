@@ -38,7 +38,27 @@ if (Meteor.isServer)
               tiles : n.gameData.MapGrid.tiles )
       console.log("Updated DB")
       return
-  ,2000
-
-
-
+  ,1000
+  #Delete Games if the users are no longer in them every few minutes
+  Meteor.setInterval () ->
+    runningGames = GameRooms.find({state: "launched"}).fetch()
+    for game in runningGames 
+      for player in game.players
+        user = OnlineUsers.findOne({userId : player})
+        if(user.gameId is game._id)
+          console.log("Were Good, the user is still in")
+        else
+          console.log("User must be in a different game or not in a game")  
+          location = game.players.indexOf(this.userId)
+          if game.playerCount is 1
+            History.insert({gamePlayed: new Date()})
+            GameRooms.remove(game._id)
+          else
+            game.players.splice(location, 1) 
+            game.playerCount--
+            GameRooms.update(game._id,
+              $set:
+                playerCount : game.playerCount
+                players : game.players
+            )
+  ,1000
