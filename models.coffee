@@ -45,10 +45,12 @@ Meteor.methods({
 
   launchGame: (options) ->
     newGameData = makeGame(options.gameSize)
+    playersWColor = assignColors(GameRooms.findOne(options.gameId).players)
     console.log("newGameData")
     GameRooms.update options.gameId, 
       $set :
         gameData : newGameData
+        players : playersWColor
     
   getGameName: (options) ->
     GameRooms.findOne(options._id).title

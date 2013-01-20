@@ -18,3 +18,4 @@ makeTerrain = (xLoc, yLoc) ->
     type : TerrainTypes[ Math.floor ( Math.random() * (TerrainTypes.length-1) ) ]
     food : food 
     lifeForm : lifeForm
+    playerOwner : "none"

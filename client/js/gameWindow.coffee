@@ -1,16 +1,25 @@
 cellWidth = 10
 cellHeight = 10
-delay = 100
+
 toSingleArray = (twoDArray) ->
   newArray = []
   for n, x in twoDArray
     for k, y in n
-      newArray.push({x: x, y: y, lifeForm: twoDArray[x][y].lifeForm})
+      newArray.push(
+        x: x
+        y: y 
+        lifeForm: twoDArray[x][y].lifeForm
+        playerOwner: twoDArray[x][y].playerOwner
+      )
   newArray
 
 Template.gameWindow.age = () ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
   currentGame.gameData.Age if currentGame.gameData
+
+Template.gameWindow.players = () ->
+  currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
+  currentGame.players if currentGame.players 
 
 Template.gameWindow.rendered = (template) ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)

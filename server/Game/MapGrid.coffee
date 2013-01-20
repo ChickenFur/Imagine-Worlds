@@ -44,7 +44,8 @@ MapMethods = {
           x : tiles[x][y].x
           y : tiles[x][y].y
           lifeForm : newLifeForm
-          type : "test" #tiles[x][y].type
+          type : tiles[x][y].type
+          playerOwner : tiles[x][y].playerOwner
           }  
     return nextGen
 }
