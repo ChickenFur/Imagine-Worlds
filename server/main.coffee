@@ -13,7 +13,7 @@ if (Meteor.isServer)
     Messages.find({})
 
   Meteor.startup () -> 
-    console.log("Server Started")
+    console.log("Server ReStarted")
     #code to run on server at startup
 
   Meteor.setInterval () ->
@@ -25,7 +25,6 @@ if (Meteor.isServer)
     runningGames = GameRooms.find({state: "launched"}).fetch()
     for n, i in runningGames
       n.gameData.MapGrid.tiles = MapMethods.newGeneration(n.gameData.MapGrid.tiles)
-      console.log( n.gameData.MapGrid.tiles)
       GameRooms.update(n._id, {$set : {MapGrid : n.gameData.MapGrid} })
     return
 
