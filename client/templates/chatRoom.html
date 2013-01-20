@@ -83,11 +83,15 @@
 <template name="gameRoom">
   <div class = "gameButtons" id="{{title}}GameButtons">
     {{#if ownersGame}}
-      <div class="launchButton">
+      <div class="gridSize">
+        <span>Grid Size: </span>
+        <input class="gridSizeInput" type="number" value="10"/> 
+      </div>
+      <div class="launchButtonDiv">
         <button class="launchGame">Launch Game </button>     
       </div>
     {{/if}}
-    <div class="leaveGame">
+    <div class="leaveGameDiv">
       <button class="leaveGame">Leave Game</button>
     </div>
   </div>

@@ -109,7 +109,7 @@ Template.chatRoom.events({
     Session.set "GameStatus", gameStatus
     Meteor.call "launchGame", 
       gameId : gameStatus.gameId
-      gameSize : GAME_SIZE
+      gameSize : template.find(".gridSizeInput").value
   })
 Template.gameRoom.ownersGame = ->
   if(Session.get("GameStatus"))
