@@ -8,6 +8,10 @@ toSingleArray = (twoDArray) ->
       newArray.push({x: x, y: y, lifeForm: twoDArray[x][y].lifeForm})
   newArray
 
+Template.gameWindow.age = () ->
+  currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
+  currentGame.gameData.Age if currentGame.gameData
+
 Template.gameWindow.rendered = (template) ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
   grid = currentGame.gameData.MapGrid.tiles
