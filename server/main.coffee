@@ -15,13 +15,17 @@ if (Meteor.isServer)
   Meteor.startup () -> 
     console.log("Server ReStarted")
     #code to run on server at startup
-
+  #Checks user HeartBeat  
   Meteor.setInterval () ->
     now = new Date() 
     ONE_MINUTE = 60 * 1000 #in ms 
     OnlineUsers.find().fetch().forEach (user) ->
       if( (now - user.lastActivity) > ONE_MINUTE )
         OnlineUsers.remove(user._id)
+    return
+  ,2000
+  #Increments the Games Running
+  Meteor.setInterval () ->
     runningGames = GameRooms.find({state: "launched"}).fetch()
     for n, i in runningGames
       n.gameData.MapGrid.tiles = MapMethods.newGeneration(n.gameData.MapGrid.tiles)
@@ -33,8 +37,8 @@ if (Meteor.isServer)
             MapGrid : 
               tiles : n.gameData.MapGrid.tiles )
       console.log("Updated DB")
-    return
-
+      return
   ,2000
+
 
 
