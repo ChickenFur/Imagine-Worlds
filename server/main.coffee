@@ -38,7 +38,7 @@ if (Meteor.isServer)
               tiles : n.gameData.MapGrid.tiles )
       console.log("Updated DB")
       return
-  ,1000
+  ,4000
   #Delete Games if the users are no longer in them every few minutes
   Meteor.setInterval () ->
     runningGames = GameRooms.find({state: "launched"}).fetch()

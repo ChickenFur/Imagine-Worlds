@@ -41,6 +41,11 @@ Template.gameWindow.rendered = (template) ->
     .attr("y", (d) -> ys(d.y))
     .attr("width", cellWidth)
     .attr("height", cellHeight)
+    .on('click', (d, i) ->
+      console.log("X:" + d.x, "Y:" + d.y)
+      d3.select(this).style("fill", "red");
+      return
+    )
   return
 
 Template.gameWindow.events({
