@@ -6,9 +6,11 @@
       <div class="gamePlayers">
           <div><span class="gamePlayersTitle" > Players </span> <span class="scoreTitle">Score</spam></div>
           {{#each names}}
-            <div>
+            <div class = "playerDiv">
               <span class="player" style="background-color: {{color}}"> {{name}} </span>
-              <span class="score">{{score}}</span>
+            </div>
+            <div class="score">
+              <span >{{score}}</span>
             </div>  
           {{/each}}
       </div> 

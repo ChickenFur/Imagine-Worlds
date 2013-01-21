@@ -1,5 +1,7 @@
 cellWidth = 30  
 cellHeight = 30
+NUM_OF_CLICKS_TO_GAME_SIZE = 3
+numOfClicks = 5
 
 toSingleArray = (twoDArray) ->
   newArray = []
@@ -37,7 +39,7 @@ Template.gameWindow.clicks = ->
   if( Session.get("clicks") >= 0)
     return Session.get("clicks")
   else
-    return 5
+    return numOfClicks
 
 Template.gameWindow.age = () ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
@@ -66,8 +68,8 @@ Template.gameWindow.rendered = (template) ->
   singleArray = toSingleArray(grid)
   width = grid.length * cellWidth
   height = grid.length * cellHeight
-  $('#map_container').css("width", width+50)
-  $('#map_container').css("height", height+50)
+  $('#map_container').css("width", width)
+  $('#map_container').css("height", height)
   xs = d3.scale.linear().domain([0, width]).range([0, width * cellWidth])
   ys = d3.scale.linear().domain([0, height]).range([0, height * cellHeight])
 
@@ -102,7 +104,8 @@ Template.gameWindow.rendered = (template) ->
             fillGridSquare(this, d, currentGame, currentUserId)
             Session.set("clicks", clicksLeft-1)
         else if clicksLeft is undefined
-          Session.set("clicks", 4)
+          numOfClicks = Math.floor(grid.length / NUM_OF_CLICKS_TO_GAME_SIZE
+          Session.set("clicks", numOfClicks))
           fillGridSquare(this, d, currentGame, currentUserId)
 
       return
