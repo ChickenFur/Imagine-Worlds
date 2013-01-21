@@ -23,6 +23,7 @@ Template.gameWindow.players = () ->
 
 Template.gameWindow.rendered = (template) ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
+  currentUserId = Meteor.userId();
   grid = currentGame.gameData.MapGrid.tiles
   singleArray = toSingleArray(grid)
   width = grid.length * cellWidth
@@ -52,7 +53,7 @@ Template.gameWindow.rendered = (template) ->
     .attr("height", cellHeight)
     .on('click', (d, i) ->
       console.log("X:" + d.x, "Y:" + d.y)
-      d3.select(this).style("fill", "red");
+      d3.select(this).style("fill", currentGame.playerColorArray[currentGame.players.indexOf(currentUserId)]);
       return
     )
   return
