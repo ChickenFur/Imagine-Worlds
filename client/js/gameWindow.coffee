@@ -13,6 +13,13 @@ toSingleArray = (twoDArray) ->
       )
   newArray
 
+getCurrentScore = (tiles, userId) ->
+  score = 0
+  for n in tiles
+    for k in n
+      if(k.playerOwner is userId)
+        score+=1
+  score
 fillGridSquare = (self, d, currentGame, currentUserId) ->
   d3.select(self).style("fill", currentGame.playerColorArray[currentGame.players.indexOf(currentUserId)]);
   cell = currentGame.gameData.MapGrid.tiles[d.x][d.y]
@@ -44,7 +51,8 @@ Template.gameWindow.names = () ->
     if currentGame.playerColorArray
       for n in currentPlayers 
         currentColor = currentGame.playerColorArray[currentGame.players.indexOf(n.userId)];
-        names.push({ name : n.name, color : currentColor })
+        currentScore = getCurrentScore(currentGame.gameData.MapGrid.tiles, n.userId)
+        names.push({ name : n.name, color : currentColor, score: currentScore })
   names
 
 Template.gameWindow.playerColors = () ->
@@ -67,7 +75,7 @@ Template.gameWindow.rendered = (template) ->
     .append("svg:svg")
     .attr("class", "vis")
     .attr("width", width)
-    .attr("heigth", height)
+    .attr("height", height)
 
   vis.selectAll("rect")
     .data(singleArray)

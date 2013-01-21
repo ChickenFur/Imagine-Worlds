@@ -1,16 +1,19 @@
 <template name="gameWindow">
   <div class="gameWindow">
+    <div class="gameAge">Current Game Turn Is {{age}}</div>
     <div class="gameOptions">
-      <div class="clicksLeft"> Clicks Left: {{clicks}}</div>
-      <div class="gameAge">Age: {{age}}</div>
+      <div class="clicksLeft"> You Have <span class="click">{{clicks}}</span> Clicks Left</div>
+      <div class="gamePlayers">
+          <div><span class="gamePlayersTitle" > Players </span> <span class="scoreTitle">Score</spam></div>
+          {{#each names}}
+            <div>
+              <span class="player" style="background-color: {{color}}"> {{name}} </span>
+              <span class="score">{{score}}</span>
+            </div>  
+          {{/each}}
+      </div> 
       <div class="endTheGame">
         <button class="endGame">Leave Game</button>
-      </div> 
-      <div class="gamePlayers">
-          {{#each names}}
-            <div class="player" style="background-color: {{color}}"> {{name}} </div>
-          {{/each}}
-
       </div>  
     </div>
     <div id="map_container">
