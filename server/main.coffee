@@ -15,7 +15,7 @@ if (Meteor.isServer)
   Meteor.startup () -> 
     console.log("Server ReStarted")
     #code to run on server at startup
-    
+
   #Checks user HeartBeat  
   Meteor.setInterval () ->
     now = new Date() 
@@ -48,19 +48,19 @@ if (Meteor.isServer)
   Meteor.setInterval () ->
     runningGames = GameRooms.find({state: "launched"}).fetch()
     for game in runningGames 
-      # console.log("Players" + game.players )
+      console.log("Players" + game.players )
       for player in game.players
         user = OnlineUsers.findOne({userId : player})
-        # console.log(user)
+        console.log(user)
         if( (user is undefined) or (user.gameId isnt game._id))
-          # console.log("User must be in a different game or not in a game")
-          # console.log("User is:" + user)
-          # console.log("User gameid is:" + user.gameId)
-          # console.log("gameid is " + game._id)
+          console.log("User must be in a different game or not in a game")
+          console.log("User is:" + user)
+          console.log("User gameid is:" + user.gameId)
+          console.log("gameid is " + game._id)
           location = game.players.indexOf(player)
-          # console.log("Id of PLayer Removing " + player)
-          # console.log("location in array:" + location)
-          # console.log("Players array" + game.players)
+          console.log("Id of PLayer Removing " + player)
+          console.log("location in array:" + location)
+          console.log("Players array" + game.players)
           if(location >= 0)
             if game.playerCount is 1
               History.insert({gamePlayed: new Date()})
@@ -69,8 +69,10 @@ if (Meteor.isServer)
             else
               newCount = game.playerCount-1
               game.players.splice(location, 1) 
+              game.playerColorArray.splice(location, 1)
               GameRooms.update(game._id,
                 $set:
+                  playerColorArray : game.playerColorArray
                   playerCount : newCount
                   players : game.players
               )
