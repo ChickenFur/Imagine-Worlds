@@ -43,6 +43,7 @@ Template.gameWindow.rendered = (template) ->
   $('#map_container').css("height", height+50)
   xs = d3.scale.linear().domain([0, width]).range([0, width * cellWidth])
   ys = d3.scale.linear().domain([0, height]).range([0, height * cellHeight])
+
   vis = d3.select('#map_container')
     .append("svg:svg")
     .attr("class", "vis")
@@ -63,8 +64,19 @@ Template.gameWindow.rendered = (template) ->
     .attr("width", cellWidth)
     .attr("height", cellHeight)
     .on('click', (d, i) ->
-      console.log("X:" + d.x, "Y:" + d.y)
-      d3.select(this).style("fill", currentGame.playerColorArray[currentGame.players.indexOf(currentUserId)]);
+      if(!d.lifeForm)
+        d3.select(this).style("fill", currentGame.playerColorArray[currentGame.players.indexOf(currentUserId)]);
+        currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
+        cell = currentGame.gameData.MapGrid.tiles[d.x][d.y]
+        cell.lifeForm = true
+        cell.playerOwner = currentUserId
+        currentGame.gameData.MapGrid.tiles[d.x][d.y] = cell
+        GameRooms.update(currentGame._id, 
+        $set : 
+          gameData  :
+            Age     : currentGame.gameData.Age+1
+            MapGrid : 
+              tiles : currentGame.gameData.MapGrid.tiles )
       return
     )
   return

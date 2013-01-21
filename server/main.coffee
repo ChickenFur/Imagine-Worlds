@@ -31,6 +31,7 @@ if (Meteor.isServer)
     console.log("Games Running:" + runningGames.length)
     for n, i in runningGames
       console.log("Game Number:" + i)
+      # console.log(n.gameData.MapGrid.tiles)
       n.gameData.MapGrid.tiles = MapMethods.newGeneration(n.gameData.MapGrid.tiles)
       console.log(n.gameData.Age) 
       GameRooms.update(n._id, 
