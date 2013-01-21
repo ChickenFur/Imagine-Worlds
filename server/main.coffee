@@ -41,7 +41,7 @@ if (Meteor.isServer)
             MapGrid : 
               tiles : n.gameData.MapGrid.tiles )
     return
-  ,2000
+  ,4000
 
   #Delete Games if the users are no longer in them every few minutes
   Meteor.setInterval () ->

@@ -45,7 +45,7 @@ MapMethods = {
           y : tiles[x][y].y
           lifeForm : newLifeForm
           type : tiles[x][y].type
-          playerOwner : tiles[x][y].playerOwner
+          playerOwner : if newLifeForm then tiles[x][y].playerOwner else "none"
           }  
     return nextGen
 }

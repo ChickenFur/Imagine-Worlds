@@ -55,9 +55,13 @@ Template.gameWindow.rendered = (template) ->
     .enter().append("svg:rect")
     .attr("stroke", "none")
     .attr("fill", (d) -> 
-      if d.lifeForm
-        return "green" 
-      else
+      if d.lifeForm 
+        if d.playerOwner is "none"
+          return "green"
+        else
+          color = currentGame.playerColorArray[currentGame.players.indexOf(d.playerOwner)]
+          return color #currentGame.playerColorArray[currentGame.players.indexOf(d.playerOwner)]
+      else 
         return "white")
     .attr("x", (d) -> xs(d.x))
     .attr("y", (d) -> ys(d.y))
@@ -66,7 +70,6 @@ Template.gameWindow.rendered = (template) ->
     .on('click', (d, i) ->
       if(!d.lifeForm)
         d3.select(this).style("fill", currentGame.playerColorArray[currentGame.players.indexOf(currentUserId)]);
-        currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
         cell = currentGame.gameData.MapGrid.tiles[d.x][d.y]
         cell.lifeForm = true
         cell.playerOwner = currentUserId
