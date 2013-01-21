@@ -1,5 +1,5 @@
-cellWidth = 35
-cellHeight = 35
+cellWidth = 10  
+cellHeight = 10
 
 toSingleArray = (twoDArray) ->
   newArray = []
@@ -12,6 +12,25 @@ toSingleArray = (twoDArray) ->
         playerOwner: twoDArray[x][y].playerOwner
       )
   newArray
+
+fillGridSquare = (self, d, currentGame, currentUserId) ->
+  d3.select(self).style("fill", currentGame.playerColorArray[currentGame.players.indexOf(currentUserId)]);
+  cell = currentGame.gameData.MapGrid.tiles[d.x][d.y]
+  cell.lifeForm = true
+  cell.playerOwner = currentUserId
+  currentGame.gameData.MapGrid.tiles[d.x][d.y] = cell
+  GameRooms.update(currentGame._id, 
+  $set : 
+    gameData  :
+      Age     : currentGame.gameData.Age+1
+      MapGrid : 
+        tiles : currentGame.gameData.MapGrid.tiles )
+
+Template.gameWindow.clicks = ->
+  if( Session.get("clicks") >= 0)
+    return Session.get("clicks")
+  else
+    return 5
 
 Template.gameWindow.age = () ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
@@ -60,7 +79,7 @@ Template.gameWindow.rendered = (template) ->
           return "green"
         else
           color = currentGame.playerColorArray[currentGame.players.indexOf(d.playerOwner)]
-          return color #currentGame.playerColorArray[currentGame.players.indexOf(d.playerOwner)]
+          return color 
       else 
         return "white")
     .attr("x", (d) -> xs(d.x))
@@ -69,17 +88,15 @@ Template.gameWindow.rendered = (template) ->
     .attr("height", cellHeight)
     .on('click', (d, i) ->
       if(!d.lifeForm)
-        d3.select(this).style("fill", currentGame.playerColorArray[currentGame.players.indexOf(currentUserId)]);
-        cell = currentGame.gameData.MapGrid.tiles[d.x][d.y]
-        cell.lifeForm = true
-        cell.playerOwner = currentUserId
-        currentGame.gameData.MapGrid.tiles[d.x][d.y] = cell
-        GameRooms.update(currentGame._id, 
-        $set : 
-          gameData  :
-            Age     : currentGame.gameData.Age+1
-            MapGrid : 
-              tiles : currentGame.gameData.MapGrid.tiles )
+        clicksLeft = Session.get "clicks"
+        if clicksLeft
+          if clicksLeft > 0
+            fillGridSquare(this, d, currentGame, currentUserId)
+            Session.set("clicks", clicksLeft-1)
+        else if clicksLeft is undefined
+          Session.set("clicks", 4)
+          fillGridSquare(this, d, currentGame, currentUserId)
+
       return
     )
   return

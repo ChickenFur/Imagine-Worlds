@@ -15,6 +15,7 @@ if (Meteor.isServer)
   Meteor.startup () -> 
     console.log("Server ReStarted")
     #code to run on server at startup
+    
   #Checks user HeartBeat  
   Meteor.setInterval () ->
     now = new Date() 
@@ -43,7 +44,7 @@ if (Meteor.isServer)
     return
   ,2000
 
-  #Delete Games if the users are no longer in them every few minutes
+  #Delete Games if the users are no longer in them every 4 seconds
   Meteor.setInterval () ->
     runningGames = GameRooms.find({state: "launched"}).fetch()
     for game in runningGames 
