@@ -17,9 +17,20 @@ Template.gameWindow.age = () ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
   currentGame.gameData.Age if currentGame.gameData
 
-Template.gameWindow.players = () ->
+Template.gameWindow.names = () ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
-  currentGame.players if currentGame.players 
+  currentPlayers = OnlineUsers.find({gameId: Session.get("GameStatus").gameId}).fetch()
+  names = []
+  if currentPlayers
+    if currentGame.playerColorArray
+      for n in currentPlayers 
+        currentColor = currentGame.playerColorArray[currentGame.players.indexOf(n.userId)];
+        names.push({ name : n.name, color : currentColor })
+  names
+
+Template.gameWindow.playerColors = () ->
+  currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)
+  currentGame.playerColorArray if currentGame.playerColorArray
 
 Template.gameWindow.rendered = (template) ->
   currentGame = GameRooms.findOne(Session.get("GameStatus").gameId)

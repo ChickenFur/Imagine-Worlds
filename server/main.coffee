@@ -54,10 +54,11 @@ if (Meteor.isServer)
           console.log("location in array:" + location)
           console.log("Players array" + game.players)
           if(location >= 0)
-            console.log("Location is valid Removing")
+            console.log("Removing Game")
             if game.playerCount is 1
               History.insert({gamePlayed: new Date()})
               GameRooms.remove(game._id)
+              console.log("Game Removed")
             else
               newCount = game.playerCount-1
               game.players.splice(location, 1) 
@@ -66,6 +67,7 @@ if (Meteor.isServer)
                   playerCount : newCount
                   players : game.players
               )
+              console.log("Player Removed")
         else
           console.log("Were Good, the user is still in")
   ,4000

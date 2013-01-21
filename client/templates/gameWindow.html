@@ -4,7 +4,13 @@
       <div class="gameAge">Age: {{age}}</div>
       <div class="endTheGame">
         <button class="endGame">Leave Game</button>
-      </div>    
+      </div> 
+      <div class="gamePlayers">
+          {{#each names}}
+            <div class="player" style="background-color: {{color}}"> {{name}} </div>
+          {{/each}}
+
+      </div>  
     </div>
     <div id="map_container">
     </div>
