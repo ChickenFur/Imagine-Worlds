@@ -1,5 +1,5 @@
-cellWidth = 10  
-cellHeight = 10
+cellWidth = 30  
+cellHeight = 30
 
 toSingleArray = (twoDArray) ->
   newArray = []
@@ -105,4 +105,5 @@ Template.gameWindow.events({
   'click .endGame' : (event, template) ->
     gameUserFunctions.leaveGame(this.userId, Session.get("GameStatus").gameId )
     Session.set("GameStatus", "")
+    Session.set("clicks", undefined)
   })

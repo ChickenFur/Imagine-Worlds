@@ -3,7 +3,9 @@ NUM_MESSAGES_TO_DISPLAY = 50
 GAME_SIZE = 15
 
 Template.chatRoom.rendered = () ->
+  Session.set("clicks", undefined)
   $(this.find('.messagesText')).scrollTop(SCROLL_BOTTOM_POSITION)
+  
 Template.chatRoom.roomName = () ->
   if(Session.get("GameStatus"))
     return Session.get("GameStatus").name
