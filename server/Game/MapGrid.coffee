@@ -12,14 +12,23 @@ makeMapGrid = (size) ->
 
 calculateNewOwner = (array) ->
   results = {}
+  newOwner = "none"
+  currentHigh = 0
+  debugger
   for n in array
-    if results[n]
-      results[n]+=1
-    else
-      results[n] = 1
-  for n in results
-    console.log(n)
-  return 
+    if n isnt "none"
+      if results[n]
+        results[n]+=1
+        # console.log(results[n] +  " of " + n)
+      else
+        results[n] = 1
+  # console.log("The Results are: " + Object.keys(results) )
+  # console.log(results)
+  for own key, value of results
+    # console.log("This is never run")
+    if (currentHigh < value)
+      newOwner = key
+  return newOwner
 
 checkForNeighbors = (tiles, x, y) ->
   playerOwners = []
@@ -46,7 +55,7 @@ checkForNeighbors = (tiles, x, y) ->
   liveNeighbors += if tiles[right][below].lifeForm then 1 else 0  
   playerOwners.push(tiles[right][below].playerOwner)
 
-  return liveNeighbors
+  return {liveNeighbors: liveNeighbors, newOwner :  calculateNewOwner(playerOwners)}
 
 
 MapMethods = {
@@ -59,9 +68,10 @@ MapMethods = {
       for n, y in tiles[x] 
         lifeForm = tiles[x][y].lifeForm
 
-        #neighborResults = 
-        liveNeighbors = checkForNeighbors(tiles, x, y)#neighborResults.liveNeighbors
-        #newOwner = neighborResults.newOwner
+        neighborResults = checkForNeighbors(tiles, x, y)
+        liveNeighbors = neighborResults.liveNeighbors
+        newOwner = neighborResults.newOwner
+        # console.log("New Owner is: "+ newOwner)
         newLifeForm = false
 
         if lifeForm
@@ -73,7 +83,7 @@ MapMethods = {
           y : tiles[x][y].y
           lifeForm : newLifeForm
           type : tiles[x][y].type
-          playerOwner : if newLifeForm then tiles[x][y].playerOwner else "none"
+          playerOwner : if newLifeForm then newOwner else "none"
           }  
     return nextGen
 }

@@ -1,5 +1,5 @@
-cellWidth = 10
-cellHeight = 10
+cellWidth = 35
+cellHeight = 35
 
 toSingleArray = (twoDArray) ->
   newArray = []

@@ -18,12 +18,12 @@ if (Meteor.isServer)
   #Checks user HeartBeat  
   Meteor.setInterval () ->
     now = new Date() 
-    ONE_MINUTE = 60 * 1000 #in ms 
+    ONE_MINUTE = 60 * 2000 #in ms 
     OnlineUsers.find().fetch().forEach (user) ->
       if( (now - user.lastActivity) > ONE_MINUTE )
         OnlineUsers.remove(user._id)
     return
-  ,2000
+  ,2500
 
   #Increments the Games Running
   Meteor.setInterval () ->
@@ -47,16 +47,19 @@ if (Meteor.isServer)
   Meteor.setInterval () ->
     runningGames = GameRooms.find({state: "launched"}).fetch()
     for game in runningGames 
-      console.log("Players" + game.players )
+      # console.log("Players" + game.players )
       for player in game.players
         user = OnlineUsers.findOne({userId : player})
-        console.log(user)
+        # console.log(user)
         if( (user is undefined) or (user.gameId isnt game._id))
-          console.log("User must be in a different game or not in a game")
+          # console.log("User must be in a different game or not in a game")
+          # console.log("User is:" + user)
+          # console.log("User gameid is:" + user.gameId)
+          # console.log("gameid is " + game._id)
           location = game.players.indexOf(player)
-          console.log("Id of PLayer Removing " + player)
-          console.log("location in array:" + location)
-          console.log("Players array" + game.players)
+          # console.log("Id of PLayer Removing " + player)
+          # console.log("location in array:" + location)
+          # console.log("Players array" + game.players)
           if(location >= 0)
             if game.playerCount is 1
               History.insert({gamePlayed: new Date()})
