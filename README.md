@@ -1,10 +1,10 @@
-# H1 Competitive Conway's Game Of Life
+#Competitive Multiplayer Conway's Game Of Life
 ---
  Built using Meteor and D3.js.
 
-# H2 How to run:
+#How to run:
 
-  # H3 install meteor:
+  ###install meteor:
 
   $ curl https://install.meteor.com | /bin/sh
 
@@ -16,7 +16,8 @@
 
   By default meteor runs on port 3000. Open your browser and point to http://localhost:3000 and let the pixel fights begin.
 
-  The Rules the life forms follow are:
+  ###The Rules the life forms follow are:
+
     Any live cell with fewer than two live neighbours dies, as if caused by under-population.
     Any live cell with two or three live neighbours lives on to the next generation.
     Any live cell with more than three live neighbours dies, as if by overcrowding.
@@ -25,4 +26,5 @@
   Check out the wikipedia page for more indepth information.
   http://en.wikipedia.org/wiki/Conway's_Game_of_Life
 
-# H2 See live at imagine-worlds.meteor.com
+###See live:
+  http://imagine-worlds.meteor.com
