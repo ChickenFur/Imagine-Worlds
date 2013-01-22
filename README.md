@@ -28,3 +28,6 @@
 
 ### See live:
   http://imagine-worlds.meteor.com
+
+  MIT LICENSE
+  https://github.com/ChickenFur/Imagine-Worlds/blob/master/LICENSE
