@@ -13,6 +13,4 @@ gameUserFunctions = {
           playerCount : currentGame.playerCount
           players : currentGame.players
       )
-
-
 }

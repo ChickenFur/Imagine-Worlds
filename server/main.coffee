@@ -19,12 +19,12 @@ if (Meteor.isServer)
   #Checks user HeartBeat  
   Meteor.setInterval () ->
     now = new Date() 
-    ONE_MINUTE = 60 * 2000 #in ms 
+    FIVE_MINUTE = 60 * 5000 #in ms 
     OnlineUsers.find().fetch().forEach (user) ->
-      if( (now - user.lastActivity) > ONE_MINUTE )
+      if( (now - user.lastActivity) > FIVE_MINUTE )
         OnlineUsers.remove(user._id)
     return
-  ,2500
+  ,60000
 
   #Increments the Games Running
   Meteor.setInterval () ->

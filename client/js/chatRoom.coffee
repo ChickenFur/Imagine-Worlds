@@ -53,7 +53,7 @@ Template.chatRoom.events({
     title = template.find(".newGameName").value
     if(title.length)
       gameId = GameRooms.insert
-                owner: this.userId
+                owner: Meteor.userId()
                 title: title
                 state: "chatRoom"
                 players: [this.userId]
